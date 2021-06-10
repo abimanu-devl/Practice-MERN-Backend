@@ -24,9 +24,21 @@ const getCategories = async (req, res) => {
     });
 }
 
+const getCategoryById = async(req,res) =>{
+  if(req.params && req.params.id){
+    await Category.findById(req.params.id)
+    .then(data =>{
+      res.status(200).send({data:data})
+    }).catch(error =>{
+      res.status(404).send({error:error.message});
+    })
+  }
+
+}
+
 const getVehiclesForCategory = async (req, res) => {
   if (req.params && req.params.id) {
-    await Vehicle.findById(req.params.id)
+    await Category.findById(req.params.id)
       .populate('vehicles', 'code model type name')
       .then(data => {
         res.status(200).send({ vehicles: data.vehicles });
@@ -50,4 +62,4 @@ const calculateAmount = async (req, res) => {
   
 }
 
-module.exports = { addCategory, getCategories, getVehiclesForCategory,calculateAmount };
+module.exports = { addCategory, getCategories, getVehiclesForCategory,calculateAmount,getCategoryById };
