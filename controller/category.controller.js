@@ -1,5 +1,4 @@
 const Category = require('../models/categories');
-const Vehicle = require('../models/vehicle');
 
 const addCategory = async (req, res) => {
   if (req.body) {
